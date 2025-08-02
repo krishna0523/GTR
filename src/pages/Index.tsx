@@ -1,12 +1,45 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import NavigationBar from '../components/NavigationBar';
+import VideoBackground from '../components/VideoBackground';
+import HeroSection from '../components/HeroSection';
+import StatsSection from '../components/StatsSection';
+import ServicesSection from '../components/ServicesSection';
+import TestimonialsSection from '../components/TestimonialsSection';
+import ClientLogos from '../components/ClientLogos';
+import ContactForm from '../components/ContactForm';
+import Footer from '../components/Footer';
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="relative min-h-screen overflow-x-hidden">
+      {/* Video Background */}
+      <VideoBackground />
+      
+      {/* Navigation */}
+      <NavigationBar />
+      
+      {/* Main Content */}
+      <main className="relative z-10">
+        {/* Hero Section */}
+        <HeroSection />
+        
+        {/* Stats Section */}
+        <StatsSection />
+        
+        {/* Services Section */}
+        <ServicesSection />
+        
+        {/* Testimonials */}
+        <TestimonialsSection />
+        
+        {/* Client Logos */}
+        <ClientLogos />
+        
+        {/* Contact Form */}
+        <ContactForm />
+      </main>
+      
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };
