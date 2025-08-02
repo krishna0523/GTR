@@ -7,10 +7,14 @@ import TestimonialsSection from '../components/TestimonialsSection';
 import ClientLogos from '../components/ClientLogos';
 import ContactForm from '../components/ContactForm';
 import Footer from '../components/Footer';
+import ScrollProgressIndicator from '../components/ScrollProgressIndicator';
 
 const Index = () => {
   return (
     <div className="relative min-h-screen overflow-x-hidden">
+      {/* Scroll Progress Indicator */}
+      <ScrollProgressIndicator />
+      
       {/* Video Background */}
       <VideoBackground />
       
