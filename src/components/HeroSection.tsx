@@ -1,34 +1,20 @@
-import { useState, useEffect } from 'react';
-
 const HeroSection = () => {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setIsVisible(true), 500);
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <section id="home" className="min-h-screen flex items-center justify-center relative px-6">
       <div className="container mx-auto text-center">
-        <div className={`transition-all duration-1000 ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-        }`}>
-          {/* Main Headline */}
-          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
-            Empowering Oman's
-            <span className="text-transparent bg-gradient-to-r from-primary to-accent bg-clip-text block">
-              Digital Infrastructure
-            </span>
+        <div>
+          {/* Main Headline with Typing Animation */}
+          <h1 className="typing-headline text-5xl md:text-7xl font-bold text-white mb-6 leading-tight" style={{ fontSize: 'clamp(2rem, 5vw, 4rem)' }}>
+            Empowering Oman's Digital Infrastructure
           </h1>
           
-          {/* Subheadline */}
-          <p className="text-xl md:text-2xl text-white/90 mb-12 max-w-4xl mx-auto leading-relaxed">
+          {/* Subheadline with Fade-in */}
+          <p className="subheadline-fade text-xl md:text-2xl text-white/90 mb-12 max-w-4xl mx-auto leading-relaxed">
             Delivering Excellence in Fiber Optics, Civil Engineering & Pipeline Solutions
           </p>
           
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+          {/* CTA Buttons with Staggered Animation */}
+          <div className="cta-buttons-fade flex flex-col sm:flex-row gap-6 justify-center items-center">
             <a 
               href="#contact"
               className="glass-button text-lg hover:shadow-primary/50 group relative overflow-hidden"
@@ -47,9 +33,7 @@ const HeroSection = () => {
         </div>
         
         {/* Scroll Indicator */}
-        <div className={`absolute bottom-12 left-1/2 transform -translate-x-1/2 transition-all duration-1000 delay-1000 ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-        }`}>
+        <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 cta-buttons-fade">
           <div className="flex flex-col items-center text-white/80">
             <span className="text-sm mb-2 font-medium">Scroll to control video</span>
             <div className="w-6 h-10 border-2 border-white/40 rounded-full flex justify-center relative">

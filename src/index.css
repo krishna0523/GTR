@@ -157,6 +157,25 @@ All colors MUST be HSL for proper theming
   .counter-animate {
     @apply animate-[countUp_2s_ease-out_forwards];
   }
+
+  /* Hero Section Animations */
+  .typing-headline {
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 0.15em solid white;
+    width: 0;
+    animation: typing 3.5s steps(40, end) forwards, blink 0.75s step-end 5;
+  }
+  
+  .subheadline-fade {
+    opacity: 0;
+    animation: fadeInUp 1s ease-out 3.5s forwards;
+  }
+  
+  .cta-buttons-fade {
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out 4.2s forwards;
+  }
 }
 
 @keyframes fadeIn {
@@ -177,6 +196,20 @@ All colors MUST be HSL for proper theming
 @keyframes countUp {
   from { transform: scale(0.8); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink {
+  50% { border-color: transparent; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* Smooth Scrolling */
