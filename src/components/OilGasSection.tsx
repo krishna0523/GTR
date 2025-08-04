@@ -1,4 +1,5 @@
 import { Fuel, Shield, HardHat, FileCheck, MapPin, Settings, AlertTriangle, CheckCircle } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const OilGasSection = () => {
   const services = [
@@ -242,13 +243,13 @@ const OilGasSection = () => {
               safety protocols, and regulatory compliance needed for successful execution in high-risk environments.
             </p>
             <div className="flex justify-center">
-              <a 
-                href="/contact"
+              <Link 
+                to="/contact"
                 className="glass-button text-lg bg-gradient-to-r from-orange-500 to-red-500 hover:scale-105 inline-flex items-center gap-3"
               >
                 <Fuel className="w-5 h-5" />
                 Start Your Oil & Gas Project
-              </a>
+              </Link>
             </div>
           </div>
         </div>

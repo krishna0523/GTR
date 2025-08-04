@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Radio, Building2, Fuel, Droplets } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const ServicesSection = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -10,25 +11,29 @@ const ServicesSection = () => {
       icon: Radio,
       title: 'Fiber Optic Cable Laying',
       description: 'Advanced fiber optic installation and maintenance services for telecommunications infrastructure.',
-      gradient: 'from-primary to-blue-500'
+      gradient: 'from-primary to-blue-500',
+      href: '/telecom'
     },
     {
       icon: Building2,
       title: 'Civil Works & Excavation',
       description: 'Comprehensive civil engineering solutions including excavation, construction, and site preparation.',
-      gradient: 'from-accent to-yellow-500'
+      gradient: 'from-accent to-yellow-500',
+      href: '/civil-works'
     },
     {
       icon: Fuel,
       title: 'Oil & Gas Infrastructure',
       description: 'Specialized pipeline installation and maintenance for oil and gas sector operations.',
-      gradient: 'from-orange-500 to-red-500'
+      gradient: 'from-orange-500 to-red-500',
+      href: '/oil-gas'
     },
     {
       icon: Droplets,
       title: 'Water Pipeline Projects',
       description: 'Expert water pipeline installation and maintenance ensuring reliable water distribution systems.',
-      gradient: 'from-blue-500 to-cyan-500'
+      gradient: 'from-blue-500 to-cyan-500',
+      href: '/water-pipeline'
     }
   ];
 
@@ -70,9 +75,10 @@ const ServicesSection = () => {
             const Icon = service.icon;
             
             return (
-              <div
+              <Link
                 key={service.title}
-                className={`glass-card group hover:scale-105 cursor-pointer relative overflow-hidden transition-all duration-500 ${
+                to={service.href}
+                className={`glass-card group hover:scale-105 cursor-pointer relative overflow-hidden transition-all duration-500 block ${
                   isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
                 }`}
                 style={{ transitionDelay: `${index * 200}ms` }}
@@ -99,7 +105,7 @@ const ServicesSection = () => {
                   {/* Hover Glow Effect */}
                   <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-accent/20 rounded-2xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
                 </div>
-              </div>
+              </Link>
             );
           })}
         </div>

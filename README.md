@@ -123,7 +123,7 @@ src/
 **Grand Technical Resources LLC**
 - **Location**: Muscat, Sultanate of Oman
 - **Contact**: +968 9863 2229
-- **Email**: soma@gtrinfra.com
+- **Email**: office@gtrinfra.com
 - **Services**: Fiber Optics, Civil Engineering, Pipeline Solutions
 
 ## 🚀 Deployment

@@ -1,4 +1,5 @@
 import { Radio, Zap, Settings, CheckCircle, FileText, MapPin, Shield, Target } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const TelecomSection = () => {
   const capabilities = [
@@ -176,13 +177,13 @@ const TelecomSection = () => {
               to complete network commissioning, we deliver excellence at every connection point.
             </p>
             <div className="flex justify-center">
-              <a 
-                href="/contact"
+              <Link 
+                to="/contact"
                 className="glass-button text-lg bg-gradient-to-r from-primary to-accent hover:scale-105 inline-flex items-center gap-3"
               >
                 <Radio className="w-5 h-5" />
                 Start Your Telecom Project
-              </a>
+              </Link>
             </div>
           </div>
         </div>

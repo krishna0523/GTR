@@ -62,7 +62,7 @@ const ContactSection = () => {
     {
       icon: Mail,
       title: 'Email Us',
-      details: ['soma@gtrinfra.com', 'projects@gtrinfra.com', 'careers@gtrinfra.com'],
+      details: ['office@gtrinfra.com', 'projects@gtrinfra.com', 'careers@gtrinfra.com'],
       color: 'text-purple-400'
     },
     {
@@ -364,7 +364,7 @@ const ContactSection = () => {
                 Call Now for Immediate Support
               </a>
               <a 
-                href="mailto:soma@gtrinfra.com"
+                href="mailto:office@gtrinfra.com"
                 className="glass-button text-lg border-2 border-primary hover:bg-primary/20 inline-flex items-center gap-3"
               >
                 <Mail className="w-5 h-5" />

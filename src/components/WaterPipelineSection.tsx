@@ -1,4 +1,5 @@
 import { Droplets, Wrench, TestTube, MapPin, Shield, CheckCircle, Timer, Home } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const WaterPipelineSection = () => {
   const services = [
@@ -281,13 +282,13 @@ const WaterPipelineSection = () => {
               industrial pipelines, we deliver reliable infrastructure that serves communities for decades.
             </p>
             <div className="flex justify-center">
-              <a 
-                href="/contact"
+              <Link 
+                to="/contact"
                 className="glass-button text-lg bg-gradient-to-r from-blue-500 to-cyan-500 hover:scale-105 inline-flex items-center gap-3"
               >
                 <Droplets className="w-5 h-5" />
                 Start Your Water Pipeline Project
-              </a>
+              </Link>
             </div>
           </div>
         </div>

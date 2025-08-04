@@ -18,7 +18,7 @@ const Footer = () => {
   const contactInfo = [
     { icon: MapPin, text: 'PO Box: 133, PC: 1124, Muscat, Sultanate of Oman' },
     { icon: Phone, text: '+968 9863 2229' },
-    { icon: Mail, text: 'soma@gtrinfra.com' }
+    { icon: Mail, text: 'office@gtrinfra.com' }
   ];
 
   return (
