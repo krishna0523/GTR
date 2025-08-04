@@ -114,12 +114,39 @@ const NavigationBar = () => {
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu Overlay */}
         {isOpen && (
-          <div className="md:hidden absolute top-full left-0 right-0 glass-strong rounded-b-xl shadow-xl">
-            {menuItems.map((item) => (
-              <div key={item.name}>
-                {item.isRoute ? (
+          <>
+            {/* Full-screen backdrop */}
+            <div 
+              className="md:hidden"
+              style={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100vh',
+                backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                backdropFilter: 'blur(8px)',
+                WebkitBackdropFilter: 'blur(8px)', /* iOS Safari */
+                zIndex: 9999
+              }}
+              onClick={() => setIsOpen(false)}
+            />
+            
+            {/* Menu content */}
+            <div 
+              className="md:hidden absolute top-full left-0 right-0 rounded-b-xl shadow-xl border-t border-white/20"
+              style={{ 
+                backgroundColor: 'rgba(0, 0, 0, 0.9)', 
+                backdropFilter: 'blur(8px)',
+                WebkitBackdropFilter: 'blur(8px)',
+                zIndex: 10000
+              }}
+            >
+              {menuItems.map((item) => (
+                <div key={item.name}>
+                  {item.isRoute ? (
                   <Link
                     to={item.href}
                     className="block px-6 py-4 text-white hover:text-primary hover:bg-white/10 transition-colors duration-200 border-b border-white/10 last:border-b-0"
@@ -149,10 +176,11 @@ const NavigationBar = () => {
                       </a>
                     ))}
                   </div>
-                )}
-              </div>
-            ))}
-          </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </>
         )}
       </div>
     </nav>
