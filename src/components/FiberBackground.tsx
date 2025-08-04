@@ -10,47 +10,35 @@ interface FiberLine {
   visible: boolean;
 }
 
-interface FlowParticle {
-  id: string;
-  x: number;
-  y: number;
-  z: number;
-  vx: number;
-  vy: number;
-  vz: number;
-  life: number;
-  maxLife: number;
-  size: number;
-  color: string;
-  lineId: string;
-  progress: number;
-}
 
 const FiberBackground = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [particles, setParticles] = useState<FlowParticle[]>([]);
   const animationRef = useRef<number>();
+  const lastFrameTime = useRef(0);
 
   // Generate fiber optic lines with irregular, organic paths
   const [fiberLines] = useState<FiberLine[]>(() => {
     const lines: FiberLine[] = [];
     const colors = ['#00bfff', '#ffffff', '#ffaa33', '#00ff88', '#ff6b6b'];
     
-    for (let i = 0; i < 25; i++) {
+    for (let i = 0; i < 15; i++) {
       const points: { x: number; y: number; z: number }[] = [];
-      let x = -50 + Math.random() * 20; // Start from left side
-      let y = -30 + Math.random() * 60; // Random vertical position
+      let x = -100; // Start from far left off-screen
+      let y = -50 + Math.random() * 100; // Random vertical position across full height
       let z = -20 + Math.random() * 40;
       
-      // Create organic, flowing path
-      for (let j = 0; j < 15 + Math.random() * 10; j++) {
+      // Create cables that span the full screen width
+      const totalSegments = 25 + Math.random() * 10; // More segments for full screen
+      const segmentWidth = 250 / totalSegments; // Span from -100 to +150 (250 units total)
+      
+      for (let j = 0; j < totalSegments; j++) {
         points.push({ x, y, z });
         
-        // Add organic movement with noise
-        x += 3 + Math.random() * 4;
-        y += (Math.sin(j * 0.3) + Math.random() - 0.5) * 2;
-        z += (Math.cos(j * 0.2) + Math.random() - 0.5) * 1.5;
+        // Move horizontally across screen with organic curves
+        x += segmentWidth;
+        y += (Math.sin(j * 0.2) + Math.random() - 0.5) * 1.5;
+        z += (Math.cos(j * 0.15) + Math.random() - 0.5) * 1;
       }
       
       lines.push({
@@ -68,55 +56,24 @@ const FiberBackground = () => {
   });
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      const scrollTop = window.pageYOffset;
-      const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = Math.min(scrollTop / documentHeight, 1);
-      setScrollProgress(progress);
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const scrollTop = window.pageYOffset;
+          const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
+          const progress = Math.min(scrollTop / documentHeight, 1);
+          setScrollProgress(progress);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Generate flowing particles along fiber lines
-  useEffect(() => {
-    const generateParticles = () => {
-      const newParticles: FlowParticle[] = [];
-      
-      fiberLines.forEach(line => {
-        if (line.visible && Math.random() < 0.2 && line.points.length > 1) {
-          const startPoint = line.points[0];
-          const endPoint = line.points[line.points.length - 1];
-          
-          const particle: FlowParticle = {
-            id: `${line.id}_${Date.now()}_${Math.random()}`,
-            x: startPoint.x,
-            y: startPoint.y,
-            z: startPoint.z,
-            vx: (endPoint.x - startPoint.x) * 0.02,
-            vy: (endPoint.y - startPoint.y) * 0.02,
-            vz: (endPoint.z - startPoint.z) * 0.02,
-            life: 200,
-            maxLife: 200,
-            size: 1 + Math.random() * 2,
-            color: line.color,
-            lineId: line.id,
-            progress: 0
-          };
-          newParticles.push(particle);
-        }
-      });
-
-      setParticles(prev => [
-        ...prev.filter(p => p.life > 0).slice(-300),
-        ...newParticles
-      ]);
-    };
-
-    const interval = setInterval(generateParticles, 150);
-    return () => clearInterval(interval);
-  }, [fiberLines]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -230,89 +187,48 @@ const FiberBackground = () => {
       ctx.restore();
     };
 
-    // Draw flowing particles
-    const drawParticles = () => {
-      particles.forEach(particle => {
-        const proj = project3D(particle.x, particle.y, particle.z);
-        
-        ctx.save();
-        ctx.globalAlpha = particle.life / particle.maxLife;
-        
-        // Glow effect
-        const glowSize = particle.size * 4;
-        const glowGradient = ctx.createRadialGradient(
-          proj.x, proj.y, 0,
-          proj.x, proj.y, glowSize
-        );
-        glowGradient.addColorStop(0, particle.color + 'FF');
-        glowGradient.addColorStop(0.5, particle.color + '80');
-        glowGradient.addColorStop(1, particle.color + '00');
 
-        ctx.fillStyle = glowGradient;
-        ctx.beginPath();
-        ctx.arc(proj.x, proj.y, glowSize, 0, Math.PI * 2);
-        ctx.fill();
+    // Animation loop with frame rate control
+    const animate = (currentTime: number) => {
+      // Frame rate control - limit to ~30fps for better performance
+      if (currentTime - lastFrameTime.current < 33) {
+        animationRef.current = requestAnimationFrame(animate);
+        return;
+      }
+      lastFrameTime.current = currentTime;
 
-        // Core particle
-        ctx.fillStyle = particle.color;
-        ctx.beginPath();
-        ctx.arc(proj.x, proj.y, particle.size, 0, Math.PI * 2);
-        ctx.fill();
-
-        ctx.restore();
-      });
-    };
-
-    // Animation loop
-    const animate = () => {
       ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
 
-      // Dark background with subtle gradient
-      const bgGradient = ctx.createRadialGradient(
-        window.innerWidth / 2, window.innerHeight / 2, 0,
-        window.innerWidth / 2, window.innerHeight / 2, Math.max(window.innerWidth, window.innerHeight) / 2
-      );
-      bgGradient.addColorStop(0, '#000010');
-      bgGradient.addColorStop(1, '#000000');
-      ctx.fillStyle = bgGradient;
+      // Simple dark background
+      ctx.fillStyle = '#000008';
       ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
 
-      const time = Date.now() * 0.001;
+      const time = currentTime * 0.001;
 
-      // Update line visibility based on scroll progress
-      const visibleCount = Math.floor(scrollProgress * fiberLines.length) + 5;
+      // Update line visibility based on scroll progress (fewer lines)
+      const visibleCount = Math.floor(scrollProgress * fiberLines.length) + 3;
       fiberLines.forEach((line, index) => {
         line.visible = index < visibleCount;
       });
 
-      // Draw fiber lines
+      // Draw fiber lines only
       fiberLines.forEach(line => {
-        drawFiberLine(line, time);
+        if (line.visible) {
+          drawFiberLine(line, time);
+        }
       });
-
-      // Draw particles
-      drawParticles();
-
-      // Update particles
-      setParticles(prev => prev.map(particle => ({
-        ...particle,
-        x: particle.x + particle.vx,
-        y: particle.y + particle.vy,
-        z: particle.z + particle.vz,
-        life: particle.life - 1
-      })).filter(p => p.life > 0));
 
       animationRef.current = requestAnimationFrame(animate);
     };
 
-    animate();
+    animate(0);
 
     return () => {
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [scrollProgress, particles, fiberLines]);
+  }, [scrollProgress, fiberLines]);
 
   return (
     <div className="fixed inset-0 pointer-events-none z-0">
@@ -343,7 +259,7 @@ const FiberBackground = () => {
             </div>
           </div>
           <div className="mt-3 text-xs text-white/50">
-            Active Connections: {particles.length}
+            Network Status: Active
           </div>
         </div>
       </div>

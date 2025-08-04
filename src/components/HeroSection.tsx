@@ -59,18 +59,6 @@ const HeroSection = () => {
           </div>
         </div>
         
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 cta-buttons-fade">
-          <div className="flex flex-col items-center text-white/80">
-            <span className="text-sm mb-2 font-medium">Scroll to control video</span>
-            <div className="w-6 h-10 border-2 border-white/40 rounded-full flex justify-center relative">
-              <div className="w-1 h-3 bg-primary rounded-full mt-2 animate-bounce"></div>
-            </div>
-            <div className="mt-2 text-xs text-white/60">
-              Cinematic experience awaits
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );
