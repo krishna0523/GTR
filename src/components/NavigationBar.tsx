@@ -17,20 +17,19 @@ const NavigationBar = () => {
 
   const menuItems = [
     { name: 'Home', href: '/', isRoute: true },
-    { name: 'About Us', href: '/#about', isRoute: true },
+    { name: 'About Us', href: '/about', isRoute: true },
     { 
       name: 'Sectors', 
       href: '/#sectors',
       isRoute: true,
       dropdown: [
-        'Telecom Services',
-        'Civil Works',
-        'Oil & Gas',
-        'Water Pipeline Projects'
+        { name: 'Telecom Services', href: '/telecom' },
+        { name: 'Civil Works', href: '/civil-works' },
+        { name: 'Oil & Gas', href: '/oil-gas' },
+        { name: 'Water Pipeline Projects', href: '/water-pipeline' }
       ]
     },
     { name: 'Careers', href: '/careers', isRoute: true },
-    { name: 'Blog / News', href: '/#blog', isRoute: true },
     { name: 'Contact Us', href: '/contact', isRoute: true }
   ];
 
@@ -88,13 +87,13 @@ const NavigationBar = () => {
                   >
                     <div className="py-1">
                       {item.dropdown.map((subItem, index) => (
-                        <a
-                          key={subItem}
-                          href={`#${subItem.toLowerCase().replace(/\s+/g, '-')}`}
+                        <Link
+                          key={subItem.name}
+                          to={subItem.href}
                           className="block px-5 py-2.5 text-white hover:bg-white/10 hover:text-primary transition-all duration-200 font-medium text-sm border-b border-white/10 last:border-b-0"
                         >
-                          {subItem}
-                        </a>
+                          {subItem.name}
+                        </Link>
                       ))}
                     </div>
                   </div>
@@ -166,14 +165,14 @@ const NavigationBar = () => {
                 {item.dropdown && (
                   <div className="bg-white/10 border-t border-white/10">
                     {item.dropdown.map((subItem) => (
-                      <a
-                        key={subItem}
-                        href={`#${subItem.toLowerCase().replace(/\s+/g, '-')}`}
+                      <Link
+                        key={subItem.name}
+                        to={subItem.href}
                         className="block px-8 py-3 text-white/90 hover:text-primary hover:bg-white/15 transition-colors duration-200 text-sm font-medium border-b border-white/5 last:border-b-0"
                         onClick={() => setIsOpen(false)}
                       >
-                        {subItem}
-                      </a>
+                        {subItem.name}
+                      </Link>
                     ))}
                   </div>
                   )}

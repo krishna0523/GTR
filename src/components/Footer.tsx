@@ -4,10 +4,8 @@ import { Link } from 'react-router-dom';
 const Footer = () => {
   const quickLinks = [
     { name: 'Home', href: '/', isRoute: true },
-    { name: 'About', href: '/#about', isRoute: true },
-    { name: 'Sectors', href: '/#sectors', isRoute: true },
+    { name: 'About', href: '/about', isRoute: true },
     { name: 'Careers', href: '/careers', isRoute: true },
-    { name: 'Blog', href: '/#blog', isRoute: true },
     { name: 'Contact', href: '/contact', isRoute: true }
   ];
 
