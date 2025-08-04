@@ -4,7 +4,6 @@ import HeroSection from '../components/HeroSection';
 import StatsSection from '../components/StatsSection';
 import ServicesSection from '../components/ServicesSection';
 import TestimonialsSection from '../components/TestimonialsSection';
-import ClientLogos from '../components/ClientLogos';
 import Footer from '../components/Footer';
 import ScrollProgressIndicator from '../components/ScrollProgressIndicator';
 
@@ -33,9 +32,6 @@ const Index = () => {
         
         {/* Testimonials */}
         <TestimonialsSection />
-        
-        {/* Client Logos */}
-        <ClientLogos />
       </main>
       
       {/* Footer */}
