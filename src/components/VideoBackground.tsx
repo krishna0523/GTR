@@ -21,10 +21,10 @@ const VideoBackground = () => {
       const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
       const scrollProgress = Math.min(scrollTop / documentHeight, 1);
 
-      // Map scroll progress to video duration
+      // Map scroll progress to 85% of video duration to prevent blackout
       const videoDuration = video.duration;
       if (videoDuration) {
-        video.currentTime = scrollProgress * videoDuration;
+        video.currentTime = scrollProgress * videoDuration * 0.85;
       }
     };
 
@@ -51,7 +51,7 @@ const VideoBackground = () => {
         poster="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iIzIyMjIyMiIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LXNpemU9IjE4IiBmaWxsPSIjNzc3IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+TG9hZGluZy4uLjwvdGV4dD48L3N2Zz4="
       >
         <source 
-          src="/background-video.mp4" 
+          src="/GTRundefined.mp4" 
           type="video/mp4" 
         />
         Your browser does not support the video tag.

@@ -161,12 +161,12 @@ const ContactForm = () => {
             <p className="text-white/80 mb-6 text-lg">
               Let's discuss how we can bring your vision to life with our expertise and dedication.
             </p>
-            <a 
-              href="#contact"
+            <button 
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
               className="glass-button text-lg bg-gradient-to-r from-primary to-accent hover:scale-105 inline-flex items-center gap-2"
             >
-              Let's Talk
-            </a>
+              Start Your Project
+            </button>
           </div>
         </div>
       </div>

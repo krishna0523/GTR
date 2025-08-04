@@ -9,7 +9,7 @@ const StatsSection = () => {
   const stats = [
     { icon: Cable, value: 7000, suffix: '+', label: 'Meters of Fiber Laid', color: 'text-primary' },
     { icon: CheckCircle, value: 150, suffix: '+', label: 'Successful Projects Completed', color: 'text-accent' },
-    { icon: Users, value: 25, suffix: '+', label: 'Skilled Technicians and Engineers', color: 'text-primary' },
+    { icon: Users, value: 30, suffix: '+', label: 'Skilled Technicians and Engineers', color: 'text-primary' },
     { icon: Shield, value: 100, suffix: '%', label: "Compliance with Oman's Safety Norms", color: 'text-accent' }
   ];
 

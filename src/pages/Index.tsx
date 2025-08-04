@@ -5,7 +5,6 @@ import StatsSection from '../components/StatsSection';
 import ServicesSection from '../components/ServicesSection';
 import TestimonialsSection from '../components/TestimonialsSection';
 import ClientLogos from '../components/ClientLogos';
-import ContactForm from '../components/ContactForm';
 import Footer from '../components/Footer';
 import ScrollProgressIndicator from '../components/ScrollProgressIndicator';
 
@@ -37,9 +36,6 @@ const Index = () => {
         
         {/* Client Logos */}
         <ClientLogos />
-        
-        {/* Contact Form */}
-        <ContactForm />
       </main>
       
       {/* Footer */}

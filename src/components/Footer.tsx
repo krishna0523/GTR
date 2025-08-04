@@ -1,13 +1,14 @@
 import { Linkedin, Instagram, Twitter, MapPin, Phone, Mail } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   const quickLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Sectors', href: '#sectors' },
-    { name: 'Careers', href: '#careers' },
-    { name: 'Blog', href: '#blog' },
-    { name: 'Contact', href: '#contact' }
+    { name: 'Home', href: '/', isRoute: true },
+    { name: 'About', href: '/#about', isRoute: true },
+    { name: 'Sectors', href: '/#sectors', isRoute: true },
+    { name: 'Careers', href: '/careers', isRoute: true },
+    { name: 'Blog', href: '/#blog', isRoute: true },
+    { name: 'Contact', href: '/contact', isRoute: true }
   ];
 
   const socialLinks = [
@@ -17,9 +18,9 @@ const Footer = () => {
   ];
 
   const contactInfo = [
-    { icon: MapPin, text: 'Muscat, Sultanate of Oman' },
-    { icon: Phone, text: '+968 XXXX XXXX' },
-    { icon: Mail, text: 'info@gtrllc.om' }
+    { icon: MapPin, text: 'PO Box: 133, PC: 1124, Muscat, Sultanate of Oman' },
+    { icon: Phone, text: '+968 9863 2229' },
+    { icon: Mail, text: 'soma@gtrinfra.com' }
   ];
 
   return (
@@ -33,9 +34,11 @@ const Footer = () => {
           {/* Company Info */}
           <div className="lg:col-span-2">
             <div className="flex items-center mb-6">
-              <h3 className="text-3xl font-bold text-white">
-                GTR<span className="text-primary">LLC</span>
-              </h3>
+              <img 
+                src="/logo white.png" 
+                alt="GTR LLC" 
+                className="h-16 w-auto"
+              />
             </div>
             <p className="text-white/80 text-lg mb-6 leading-relaxed max-w-md">
               Building Reliable Infrastructure for Tomorrow
@@ -52,12 +55,21 @@ const Footer = () => {
             <ul className="space-y-3">
               {quickLinks.map((link) => (
                 <li key={link.name}>
-                  <a 
-                    href={link.href}
-                    className="text-white/70 hover:text-primary transition-colors duration-300 hover:translate-x-1 inline-block"
-                  >
-                    {link.name}
-                  </a>
+                  {link.isRoute ? (
+                    <Link 
+                      to={link.href}
+                      className="text-white/70 hover:text-primary transition-colors duration-300 hover:translate-x-1 inline-block"
+                    >
+                      {link.name}
+                    </Link>
+                  ) : (
+                    <a 
+                      href={link.href}
+                      className="text-white/70 hover:text-primary transition-colors duration-300 hover:translate-x-1 inline-block"
+                    >
+                      {link.name}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>
