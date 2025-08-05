@@ -36,26 +36,28 @@ const CareersSection = () => {
     try {
       // Prepare form data for submission including file
       const submitData = new FormData();
-      submitData.append('fullName', formData.fullName);
+      submitData.append('access_key', '56d56f92-16c3-47bb-9ea0-184604fca28d');
+      submitData.append('name', formData.fullName);
       submitData.append('email', formData.email);
       submitData.append('phone', formData.phone);
       submitData.append('position', formData.position);
       submitData.append('experience', formData.experience);
       submitData.append('education', formData.education);
-      submitData.append('currentLocation', formData.currentLocation);
+      submitData.append('current_location', formData.currentLocation);
       submitData.append('availability', formData.availability);
-      submitData.append('expectedSalary', formData.expectedSalary);
-      submitData.append('coverLetter', formData.coverLetter);
+      submitData.append('expected_salary', formData.expectedSalary);
+      submitData.append('cover_letter', formData.coverLetter);
       submitData.append('portfolio', formData.portfolio);
-      submitData.append('_subject', `Job Application: ${formData.position} - ${formData.fullName}`);
-      submitData.append('_replyto', formData.email);
+      submitData.append('subject', `Job Application: ${formData.position} - ${formData.fullName}`);
+      submitData.append('from_name', formData.fullName);
+      submitData.append('to_email', 'office@gtrinfra.com');
       
       if (formData.resume) {
-        submitData.append('resume', formData.resume);
+        submitData.append('attachment', formData.resume);
       }
 
-      // Send to Formspree
-      const response = await fetch('https://formspree.io/f/office@gtrinfra.com', {
+      // Send to Web3Forms
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         body: submitData,
       });

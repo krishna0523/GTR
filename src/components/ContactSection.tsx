@@ -29,22 +29,24 @@ const ContactSection = () => {
     setIsLoading(true);
     
     try {
-      // Send form data to Formspree (replace YOUR_FORM_ID with actual formspree form ID)
-      const response = await fetch('https://formspree.io/f/office@gtrinfra.com', {
+      // Send form data to Web3Forms
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          fullName: formData.fullName,
+          access_key: '56d56f92-16c3-47bb-9ea0-184604fca28d',
+          name: formData.fullName,
           email: formData.email,
           phone: formData.phone,
           company: formData.company,
-          projectType: formData.projectType,
+          project_type: formData.projectType,
           budget: formData.budget,
           message: formData.message,
-          _subject: `New Project Inquiry from ${formData.fullName}`,
-          _replyto: formData.email,
+          subject: `New Project Inquiry from ${formData.fullName}`,
+          from_name: formData.fullName,
+          to_email: 'office@gtrinfra.com',
         }),
       });
 
