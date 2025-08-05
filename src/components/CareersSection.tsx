@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Send, CheckCircle, Users, Award, Heart, Briefcase, GraduationCap, MapPin, Calendar, FileText, Upload, X } from 'lucide-react';
 
 const CareersSection = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const applicationFormRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Trigger fade-in animation when component mounts
@@ -12,6 +13,13 @@ const CareersSection = () => {
 
     return () => clearTimeout(timer);
   }, []);
+
+  const scrollToApplicationForm = () => {
+    applicationFormRef.current?.scrollIntoView({ 
+      behavior: 'smooth',
+      block: 'start'
+    });
+  };
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -33,7 +41,15 @@ const CareersSection = () => {
     e.preventDefault();
     setIsLoading(true);
     
+    // Basic validation
+    if (!formData.fullName || !formData.email || !formData.position || !formData.coverLetter) {
+      alert('Please fill in all required fields: Name, Email, Position, and Cover Letter');
+      setIsLoading(false);
+      return;
+    }
+    
     try {
+      console.log('Submitting career application:', formData);
       // Prepare form data for submission including file
       const submitData = new FormData();
       submitData.append('access_key', '56d56f92-16c3-47bb-9ea0-184604fca28d');
@@ -61,6 +77,7 @@ const CareersSection = () => {
       });
 
       const result = await response.json();
+      console.log('Web3Forms career response:', { status: response.status, result });
       
       if (response.ok && result.success) {
         setIsLoading(false);
@@ -88,9 +105,17 @@ const CareersSection = () => {
         throw new Error(result.message || 'Form submission failed');
       }
     } catch (error) {
-      console.error('Form submission error:', error);
+      console.error('Career form submission error:', error);
       setIsLoading(false);
-      alert('There was an error submitting your application. Please try again or email us directly at office@gtrinfra.com');
+      
+      // More detailed error message
+      let errorMessage = 'There was an error submitting your application. ';
+      if (error instanceof Error) {
+        errorMessage += error.message;
+      }
+      errorMessage += ' Please try again or email us directly at office@gtrinfra.com';
+      
+      alert(errorMessage);
     }
   };
 
@@ -313,7 +338,10 @@ const CareersSection = () => {
                   </ul>
                 </div>
                 
-                <button className="glass-button text-sm bg-gradient-to-r from-primary to-accent hover:scale-105 w-full">
+                <button 
+                  onClick={scrollToApplicationForm}
+                  className="glass-button text-sm bg-gradient-to-r from-primary to-accent hover:scale-105 w-full"
+                >
                   Apply for this Position
                 </button>
               </div>
@@ -322,7 +350,7 @@ const CareersSection = () => {
         </div>
 
         {/* Application Form */}
-        <div className="max-w-4xl mx-auto">
+        <div ref={applicationFormRef} className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-white mb-4">
               Submit Your <span className="text-primary">Application</span>
