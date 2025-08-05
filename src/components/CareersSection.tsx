@@ -594,11 +594,11 @@ const CareersSection = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
               <a 
-                href="mailto:careers@gtrinfra.com"
+                href="mailto:office@gtrinfra.com"
                 className="glass-button text-lg bg-gradient-to-r from-primary to-accent hover:scale-105 inline-flex items-center gap-3"
               >
                 <Send className="w-5 h-5" />
-                careers@gtrinfra.com
+                office@gtrinfra.com
               </a>
               <a 
                 href="tel:+96898632229"

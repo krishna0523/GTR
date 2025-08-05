@@ -72,7 +72,7 @@ const ContactSection = () => {
     {
       icon: Mail,
       title: 'Email Us',
-      details: ['office@gtrinfra.com', 'projects@gtrinfra.com', 'careers@gtrinfra.com'],
+      details: ['office@gtrinfra.com'],
       color: 'text-purple-400'
     },
     {
