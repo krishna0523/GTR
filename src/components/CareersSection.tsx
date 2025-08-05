@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Send, CheckCircle, Users, Award, Heart, Briefcase, GraduationCap, MapPin, Calendar, FileText, Upload, X } from 'lucide-react';
+import { Send, CheckCircle, Users, Award, Heart, Briefcase, GraduationCap, MapPin, Calendar, FileText } from 'lucide-react';
 
 const CareersSection = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -31,7 +31,6 @@ const CareersSection = () => {
     availability: '',
     expectedSalary: '',
     coverLetter: '',
-    resume: null as File | null,
     portfolio: ''
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -65,10 +64,6 @@ const CareersSection = () => {
       submitData.append('cover_letter', formData.coverLetter);
       submitData.append('portfolio', formData.portfolio);
       submitData.append('subject', `Job Application: ${formData.position} - ${formData.fullName}`);
-      
-      if (formData.resume) {
-        submitData.append('attachment', formData.resume);
-      }
 
       // Send to Web3Forms
       const response = await fetch('https://api.web3forms.com/submit', {
@@ -97,7 +92,6 @@ const CareersSection = () => {
             availability: '',
             expectedSalary: '',
             coverLetter: '',
-            resume: null,
             portfolio: ''
           });
         }, 4000);
@@ -126,20 +120,6 @@ const CareersSection = () => {
     }));
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0] || null;
-    setFormData(prev => ({
-      ...prev,
-      resume: file
-    }));
-  };
-
-  const removeFile = () => {
-    setFormData(prev => ({
-      ...prev,
-      resume: null
-    }));
-  };
 
   const jobOpenings = [
     {
@@ -542,60 +522,23 @@ const CareersSection = () => {
                 </div>
               </div>
 
-              {/* Documents and Portfolio */}
+              {/* Portfolio */}
               <div className="border-b border-white/20 pb-6">
-                <h3 className="text-2xl font-semibold text-white mb-6">Documents & Portfolio</h3>
+                <h3 className="text-2xl font-semibold text-white mb-6">Portfolio & Links</h3>
                 
-                <div className="space-y-6">
-                  <div>
-                    <label htmlFor="resume" className="block text-white/80 text-sm font-medium mb-2">
-                      Resume/CV * (PDF, DOC, DOCX - Max 5MB)
-                    </label>
-                    <div className="relative">
-                      <input
-                        type="file"
-                        id="resume"
-                        name="resume"
-                        accept=".pdf,.doc,.docx"
-                        onChange={handleFileChange}
-                        className="hidden"
-                        required={!formData.resume}
-                      />
-                      <label
-                        htmlFor="resume"
-                        className="glass-input w-full cursor-pointer flex items-center justify-center gap-3 py-8 border-2 border-dashed border-white/30 hover:border-primary/50 transition-colors"
-                      >
-                        <Upload className="w-6 h-6 text-white/60" />
-                        <span className="text-white/80">
-                          {formData.resume ? formData.resume.name : 'Click to upload your resume'}
-                        </span>
-                      </label>
-                      {formData.resume && (
-                        <button
-                          type="button"
-                          onClick={removeFile}
-                          className="absolute top-2 right-2 p-1 bg-red-500/20 hover:bg-red-500/40 rounded-full transition-colors"
-                        >
-                          <X className="w-4 h-4 text-red-400" />
-                        </button>
-                      )}
-                    </div>
-                  </div>
-
-                  <div>
-                    <label htmlFor="portfolio" className="block text-white/80 text-sm font-medium mb-2">
-                      Portfolio/LinkedIn URL (Optional)
-                    </label>
-                    <input
-                      type="url"
-                      id="portfolio"
-                      name="portfolio"
-                      value={formData.portfolio}
-                      onChange={handleChange}
-                      className="glass-input w-full"
-                      placeholder="https://linkedin.com/in/yourprofile or portfolio website"
-                    />
-                  </div>
+                <div>
+                  <label htmlFor="portfolio" className="block text-white/80 text-sm font-medium mb-2">
+                    Portfolio/LinkedIn URL (Optional)
+                  </label>
+                  <input
+                    type="url"
+                    id="portfolio"
+                    name="portfolio"
+                    value={formData.portfolio}
+                    onChange={handleChange}
+                    className="glass-input w-full"
+                    placeholder="https://linkedin.com/in/yourprofile or portfolio website"
+                  />
                 </div>
               </div>
 
