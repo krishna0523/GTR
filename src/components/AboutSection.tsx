@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Building2, Target, Eye, CheckCircle, Users, Award, Zap, Shield } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const AboutSection = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -189,13 +190,13 @@ const AboutSection = () => {
               we deliver excellence at every step of your project journey.
             </p>
             <div className="flex justify-center">
-              <a 
-                href="/contact"
+              <Link 
+                to="/contact"
                 className="glass-button text-lg bg-gradient-to-r from-primary to-accent hover:scale-105 inline-flex items-center gap-3"
               >
                 <Building2 className="w-5 h-5" />
                 Start Your Project
-              </a>
+              </Link>
             </div>
           </div>
         </div>
