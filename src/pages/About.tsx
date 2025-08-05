@@ -1,5 +1,5 @@
 import NavigationBar from '../components/NavigationBar';
-import CableBackground from '../components/CableBackground';
+import VideoBackground from '../components/VideoBackground';
 import AboutSection from '../components/AboutSection';
 import Footer from '../components/Footer';
 import ScrollProgressIndicator from '../components/ScrollProgressIndicator';
@@ -10,8 +10,8 @@ const About = () => {
       {/* Scroll Progress Indicator */}
       <ScrollProgressIndicator />
       
-      {/* Cable Background */}
-      <CableBackground />
+      {/* Video Background */}
+      <VideoBackground videoSrc="/Sequence 03.mp4" />
       
       {/* Navigation */}
       <NavigationBar />

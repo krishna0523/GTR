@@ -1,6 +1,17 @@
+import { useState, useEffect } from 'react';
 import { Building2, Target, Eye, CheckCircle, Users, Award, Zap, Shield } from 'lucide-react';
 
 const AboutSection = () => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    // Trigger fade-in animation when component mounts
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, []);
   const capabilities = [
     {
       icon: Zap,
@@ -46,7 +57,9 @@ const AboutSection = () => {
     <section className="py-24 px-6">
       <div className="container mx-auto max-w-7xl">
         {/* Hero Section */}
-        <div className="text-center mb-20">
+        <div className={`text-center mb-20 transition-all duration-800 ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+        }`}>
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 animate-slide-up">
             About <span className="text-primary">Grand Technical Resources</span> LLC
           </h1>

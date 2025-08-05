@@ -96,9 +96,6 @@ const TestimonialsSection = () => {
                 <div className="text-primary text-sm">
                   {testimonial.position}
                 </div>
-                <div className="text-white/60 text-sm">
-                  {testimonial.company}
-                </div>
               </div>
               
               {/* Hover Glow */}

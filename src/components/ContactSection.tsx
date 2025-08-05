@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Send, CheckCircle, MapPin, Phone, Mail, Clock, Building2, Users } from 'lucide-react';
 
 const ContactSection = () => {
@@ -13,6 +13,16 @@ const ContactSection = () => {
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    // Trigger fade-in animation when component mounts
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -116,11 +126,13 @@ const ContactSection = () => {
     <section id="contact" className="py-24 px-6">
       <div className="container mx-auto max-w-7xl">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 animate-slide-up">
+        <div className={`text-center mb-16 transition-all duration-800 ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+        }`}>
+          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
             Let's Build Your <span className="text-primary">Vision</span>
           </h1>
-          <p className="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto leading-relaxed animate-slide-up">
+          <p className="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto leading-relaxed">
             Ready to transform your infrastructure project into reality? 
             Connect with our expert team and let's create something extraordinary together.
           </p>
@@ -347,7 +359,7 @@ const ContactSection = () => {
 
         {/* Additional CTA Section */}
         <div className="mt-20 text-center">
-          <div className="glass-card">
+          <div className="glass-strong rounded-2xl p-6 shadow-2xl">
             <h3 className="text-4xl font-bold text-white mb-6">
               Ready to Transform Your Infrastructure?
             </h3>

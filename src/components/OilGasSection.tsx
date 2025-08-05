@@ -1,7 +1,18 @@
+import { useState, useEffect } from 'react';
 import { Fuel, Shield, HardHat, FileCheck, MapPin, Settings, AlertTriangle, CheckCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const OilGasSection = () => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    // Trigger fade-in animation when component mounts
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, []);
   const services = [
     {
       icon: Fuel,
@@ -63,7 +74,9 @@ const OilGasSection = () => {
     <section className="py-24 px-6">
       <div className="container mx-auto max-w-7xl">
         {/* Hero Section */}
-        <div className="text-center mb-20">
+        <div className={`text-center mb-20 transition-all duration-800 ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+        }`}>
           <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-orange-500/20 mb-6">
             <Fuel className="w-10 h-10 text-orange-500" />
           </div>

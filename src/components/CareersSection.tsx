@@ -1,7 +1,17 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Send, CheckCircle, Users, Award, Heart, Briefcase, GraduationCap, MapPin, Calendar, FileText, Upload, X } from 'lucide-react';
 
 const CareersSection = () => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    // Trigger fade-in animation when component mounts
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, []);
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -189,7 +199,9 @@ const CareersSection = () => {
     <section id="careers" className="py-24 px-6">
       <div className="container mx-auto max-w-7xl">
         {/* Hero Section */}
-        <div className="text-center mb-20">
+        <div className={`text-center mb-20 transition-all duration-800 ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+        }`}>
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 animate-slide-up">
             Join Our <span className="text-primary">Team</span>
           </h1>

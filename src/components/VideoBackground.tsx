@@ -1,6 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 
-const VideoBackground = () => {
+interface VideoBackgroundProps {
+  videoSrc?: string;
+}
+
+const VideoBackground = ({ videoSrc = "/GTRundefined.mp4" }: VideoBackgroundProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
 
@@ -51,7 +55,7 @@ const VideoBackground = () => {
 poster="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iIzIyMjIyMiIvPjwvc3ZnPg=="
       >
         <source 
-          src="/GTRundefined.mp4" 
+          src={videoSrc} 
           type="video/mp4" 
         />
         Your browser does not support the video tag.
