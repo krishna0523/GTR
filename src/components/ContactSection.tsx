@@ -28,7 +28,16 @@ const ContactSection = () => {
     e.preventDefault();
     setIsLoading(true);
     
+    // Basic validation
+    if (!formData.fullName || !formData.email || !formData.message) {
+      alert('Please fill in all required fields: Name, Email, and Message');
+      setIsLoading(false);
+      return;
+    }
+    
     try {
+      console.log('Submitting form data:', formData);
+      
       // Send form data to Web3Forms
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
@@ -45,12 +54,13 @@ const ContactSection = () => {
           budget: formData.budget,
           message: formData.message,
           subject: `New Project Inquiry from ${formData.fullName}`,
-          from_name: formData.fullName,
-          to_email: 'office@gtrinfra.com',
         }),
       });
 
-      if (response.ok) {
+      const result = await response.json();
+      console.log('Web3Forms response:', { status: response.status, result });
+      
+      if (response.ok && result.success) {
         setIsLoading(false);
         setIsSubmitted(true);
         
@@ -68,13 +78,20 @@ const ContactSection = () => {
           });
         }, 3000);
       } else {
-        throw new Error('Form submission failed');
+        throw new Error(result.message || 'Form submission failed');
       }
     } catch (error) {
       console.error('Form submission error:', error);
       setIsLoading(false);
-      // You could add error state handling here
-      alert('There was an error submitting the form. Please try again or contact us directly.');
+      
+      // More detailed error message
+      let errorMessage = 'There was an error submitting the form. ';
+      if (error instanceof Error) {
+        errorMessage += error.message;
+      }
+      errorMessage += ' Please try again or contact us directly at office@gtrinfra.com';
+      
+      alert(errorMessage);
     }
   };
 

@@ -49,8 +49,6 @@ const CareersSection = () => {
       submitData.append('cover_letter', formData.coverLetter);
       submitData.append('portfolio', formData.portfolio);
       submitData.append('subject', `Job Application: ${formData.position} - ${formData.fullName}`);
-      submitData.append('from_name', formData.fullName);
-      submitData.append('to_email', 'office@gtrinfra.com');
       
       if (formData.resume) {
         submitData.append('attachment', formData.resume);
@@ -62,7 +60,9 @@ const CareersSection = () => {
         body: submitData,
       });
 
-      if (response.ok) {
+      const result = await response.json();
+      
+      if (response.ok && result.success) {
         setIsLoading(false);
         setIsSubmitted(true);
         
@@ -85,7 +85,7 @@ const CareersSection = () => {
           });
         }, 4000);
       } else {
-        throw new Error('Form submission failed');
+        throw new Error(result.message || 'Form submission failed');
       }
     } catch (error) {
       console.error('Form submission error:', error);
