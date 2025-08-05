@@ -28,25 +28,52 @@ const ContactSection = () => {
     e.preventDefault();
     setIsLoading(true);
     
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    setIsLoading(false);
-    setIsSubmitted(true);
-    
-    // Reset form after 3 seconds
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({ 
-        fullName: '', 
-        email: '', 
-        phone: '', 
-        company: '', 
-        projectType: '', 
-        budget: '', 
-        message: '' 
+    try {
+      // Send form data to Formspree (replace YOUR_FORM_ID with actual formspree form ID)
+      const response = await fetch('https://formspree.io/f/office@gtrinfra.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          fullName: formData.fullName,
+          email: formData.email,
+          phone: formData.phone,
+          company: formData.company,
+          projectType: formData.projectType,
+          budget: formData.budget,
+          message: formData.message,
+          _subject: `New Project Inquiry from ${formData.fullName}`,
+          _replyto: formData.email,
+        }),
       });
-    }, 3000);
+
+      if (response.ok) {
+        setIsLoading(false);
+        setIsSubmitted(true);
+        
+        // Reset form after 3 seconds
+        setTimeout(() => {
+          setIsSubmitted(false);
+          setFormData({ 
+            fullName: '', 
+            email: '', 
+            phone: '', 
+            company: '', 
+            projectType: '', 
+            budget: '', 
+            message: '' 
+          });
+        }, 3000);
+      } else {
+        throw new Error('Form submission failed');
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setIsLoading(false);
+      // You could add error state handling here
+      alert('There was an error submitting the form. Please try again or contact us directly.');
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {

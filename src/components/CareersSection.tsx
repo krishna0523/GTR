@@ -33,30 +33,63 @@ const CareersSection = () => {
     e.preventDefault();
     setIsLoading(true);
     
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    setIsLoading(false);
-    setIsSubmitted(true);
-    
-    // Reset form after 4 seconds
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({
-        fullName: '',
-        email: '',
-        phone: '',
-        position: '',
-        experience: '',
-        education: '',
-        currentLocation: '',
-        availability: '',
-        expectedSalary: '',
-        coverLetter: '',
-        resume: null,
-        portfolio: ''
+    try {
+      // Prepare form data for submission including file
+      const submitData = new FormData();
+      submitData.append('fullName', formData.fullName);
+      submitData.append('email', formData.email);
+      submitData.append('phone', formData.phone);
+      submitData.append('position', formData.position);
+      submitData.append('experience', formData.experience);
+      submitData.append('education', formData.education);
+      submitData.append('currentLocation', formData.currentLocation);
+      submitData.append('availability', formData.availability);
+      submitData.append('expectedSalary', formData.expectedSalary);
+      submitData.append('coverLetter', formData.coverLetter);
+      submitData.append('portfolio', formData.portfolio);
+      submitData.append('_subject', `Job Application: ${formData.position} - ${formData.fullName}`);
+      submitData.append('_replyto', formData.email);
+      
+      if (formData.resume) {
+        submitData.append('resume', formData.resume);
+      }
+
+      // Send to Formspree
+      const response = await fetch('https://formspree.io/f/office@gtrinfra.com', {
+        method: 'POST',
+        body: submitData,
       });
-    }, 4000);
+
+      if (response.ok) {
+        setIsLoading(false);
+        setIsSubmitted(true);
+        
+        // Reset form after 4 seconds
+        setTimeout(() => {
+          setIsSubmitted(false);
+          setFormData({
+            fullName: '',
+            email: '',
+            phone: '',
+            position: '',
+            experience: '',
+            education: '',
+            currentLocation: '',
+            availability: '',
+            expectedSalary: '',
+            coverLetter: '',
+            resume: null,
+            portfolio: ''
+          });
+        }, 4000);
+      } else {
+        throw new Error('Form submission failed');
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setIsLoading(false);
+      alert('There was an error submitting your application. Please try again or email us directly at office@gtrinfra.com');
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
