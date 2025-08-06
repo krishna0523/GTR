@@ -1,8 +1,8 @@
 import NavigationBar from '../components/NavigationBar';
-import CableBackground from '../components/CableBackground';
 import WaterPipelineSection from '../components/WaterPipelineSection';
 import Footer from '../components/Footer';
 import ScrollProgressIndicator from '../components/ScrollProgressIndicator';
+import Spline from '@splinetool/react-spline';
 
 const WaterPipeline = () => {
   return (
@@ -10,8 +10,13 @@ const WaterPipeline = () => {
       {/* Scroll Progress Indicator */}
       <ScrollProgressIndicator />
       
-      {/* Cable Background */}
-      <CableBackground />
+      {/* Spline 3D Background */}
+      <div className="fixed inset-0 w-full h-full -z-20">
+        <Spline 
+          scene="https://prod.spline.design/Wr7WHRPqXFFiCyRk/scene.splinecode"
+          style={{ width: '100%', height: '100%' }}
+        />
+      </div>
       
       {/* Navigation */}
       <NavigationBar />

@@ -1,5 +1,5 @@
 import NavigationBar from '../components/NavigationBar';
-import CableBackground from '../components/CableBackground';
+import ShaderCableBackground from '../components/ShaderCableBackground';
 import TelecomSection from '../components/TelecomSection';
 import Footer from '../components/Footer';
 import ScrollProgressIndicator from '../components/ScrollProgressIndicator';
@@ -10,8 +10,8 @@ const Telecom = () => {
       {/* Scroll Progress Indicator */}
       <ScrollProgressIndicator />
       
-      {/* Cable Background */}
-      <CableBackground />
+      {/* Shader Cable Background */}
+      <ShaderCableBackground />
       
       {/* Navigation */}
       <NavigationBar />
