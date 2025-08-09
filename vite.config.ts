@@ -9,6 +9,7 @@ export default defineConfig(({ mode }) => ({
     host: true,
     port: 5173,
     strictPort: false,
+    historyApiFallback: true,
   },
   plugins: [
     react(),
