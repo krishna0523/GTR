@@ -43,7 +43,7 @@ const NavigationBar = () => {
           <div className="flex-shrink-0">
             <Link to="/" className="flex items-center">
               <img 
-                src="/logo white.png" 
+                src="/logo white.webp" 
                 alt="GTR LLC" 
                 className="h-12 w-auto"
               />

@@ -33,7 +33,7 @@ const Footer = () => {
           <div className="lg:col-span-2">
             <div className="flex items-center mb-6">
               <img 
-                src="/logo white.png" 
+                src="/logo white.webp" 
                 alt="GTR LLC" 
                 className="h-16 w-auto"
               />
