@@ -4,7 +4,7 @@ interface VideoBackgroundProps {
   videoSrc?: string;
 }
 
-const VideoBackground = ({ videoSrc = "/GTRundefined.mp4" }: VideoBackgroundProps) => {
+const VideoBackground = ({ videoSrc = "/background-video.mp4" }: VideoBackgroundProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
 
